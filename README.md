@@ -1,4 +1,5 @@
 # code-2026
+Proyecto de retail acerca el alta de clientes, la venta de productos y la actualización de precios.
 
 1. Descargar archivo .sql desde el repositorio.
 2. Abrir dbeaver, pgadmin4 ó sqlexpress para importar el archivo .sql
