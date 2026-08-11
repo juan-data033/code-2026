@@ -1,1 +1,16 @@
 
+
+WITH ventas_por_region AS (
+	SELECT
+		r.nombre_region,
+		SUM(v.monto) AS total_ventas -- Sin coma al final
+	FROM ventas v
+	INNER JOIN regiones r ON v.region_id = r.id
+	GROUP BY r.nombre_region
+)
+SELECT
+	nombre_region, -- Falta de coma corregida acá
+	total_ventas
+FROM ventas_por_region 
+WHERE total_ventas > (SELECT AVG(monto) FROM ventas)
+ORDER BY total_ventas DESC;
