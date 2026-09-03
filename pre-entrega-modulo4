@@ -6,7 +6,7 @@
 -- y con mayor volumen de ventas, filtrando aquellas que superan un umbral 
 -- mínimo de ingresos totales para enfocar los esfuerzos comerciales y de stock.
 -- ---------------------------------------------------------------------
-SELECT *
+SELECT
     cat.nombre AS categoria,
     SUM(dv.cantidad) AS unidades_vendidas,
     SUM(dv.cantidad * dv.precio_unitario) AS ingreso_total
@@ -32,7 +32,7 @@ ORDER BY
 -- campañas de reactivación o bienvenida dirigidas exclusivamente a este segmento.
 -- ---------------------------------------------------------------------
 
-SELECT *
+SELECT
     c.id_cliente AS id_cliente,
     c.nombre AS nombre,
     c.email,
