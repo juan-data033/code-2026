@@ -6,14 +6,14 @@
 -- y con mayor volumen de ventas, filtrando aquellas que superan un umbral 
 -- mínimo de ingresos totales para enfocar los esfuerzos comerciales y de stock.
 -- ---------------------------------------------------------------------
-SELECT 
+SELECT *
     cat.nombre AS categoria,
     SUM(dv.cantidad) AS unidades_vendidas,
     SUM(dv.cantidad * dv.precio_unitario) AS ingreso_total
 FROM 
     categorias cat
 JOIN 
-    productos p ON cat.nombre = p.categoria -- Se une por nombre de categoría
+    productos p ON cat.nombre = p.id_categoria -- Se une por nombre de categoría
 JOIN 
     ventas dv ON p.id_producto = dv.id_producto 
 GROUP BY 
@@ -32,7 +32,7 @@ ORDER BY
 -- campañas de reactivación o bienvenida dirigidas exclusivamente a este segmento.
 -- ---------------------------------------------------------------------
 
-SELECT 
+SELECT *
     c.id_cliente AS id_cliente,
     c.nombre AS nombre,
     c.email,
@@ -40,7 +40,7 @@ SELECT
 FROM 
     clientes c
 LEFT JOIN 
-    ventas v ON c.id_cliente = c.id_cliente 
+    ventas v ON c.id_cliente = v.id_cliente 
 GROUP BY 
     c.id_cliente, c.nombre, c.email
 HAVING 
@@ -58,14 +58,19 @@ HAVING
 SELECT 
     c.nombre AS cliente_nombre,
     p.nombre AS producto_favorito,
+    COUNT(*) AS veces_comprado,
     MAX(v.fecha_venta) AS ultima_transaccion
 FROM 
     clientes c
-JOIN 
+JOIN
     ventas v ON c.id_cliente = v.id_cliente
 JOIN 
     productos p ON v.id_producto = p.id_producto 
 GROUP BY 
     c.id_cliente, c.nombre, p.id_producto, p.nombre
 ORDER BY 
-    cliente_nombre, ultima_transaccion DESC;
+    cliente_nombre, 
+    veces_comprado DESC, 
+    ultima_transaccion DESC;
+
+-- Fin
